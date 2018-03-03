@@ -111,9 +111,6 @@ public class GameControl : MonoBehaviour {
 				"cheese"
 			};
 
-			currentZa.hasIngredient.Add(false);
-			currentZa.hasIngredient.Add(false);
-
 			int numberOfIngredients = (int) Random.Range(.5f, maxIngredients + .5f);
 
 			for (int i = 0; i < numberOfIngredients; i ++){

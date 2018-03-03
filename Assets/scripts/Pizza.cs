@@ -21,16 +21,16 @@ public class Pizza : MonoBehaviour {
 
 
 	public void Add(string ingredientName){
-		if (CanAddIngredent(ingredientName) != -1){
+		if (CanAddIngredent(ingredientName) != -100){
 			currentIngredients.Add(ingredientName);
 			GameControl.me.activeIngControl.stock--;
 			GameControl.me.money -= GameControl.me.activeIngControl.myPrice;
 			Debug.Log("added");
 
 
-			//if (AllIngrdientsAdded()){
-			//	Reset();
-			//}
+			if (AllIngrdientsAdded()){
+				Reset();
+			}
 
 		}
 	}
@@ -47,13 +47,13 @@ public class Pizza : MonoBehaviour {
 
 
 	int CanAddIngredent(string s){
-		for (int i = 0; i < ingredientsNeeded.Count; i ++){
-			if (ingredientsNeeded[i] == s && hasIngredient[i] == false){
-				hasIngredient[i] = true;
-				return i;
+		for (int i = 2; i < ingredientsNeeded.Count + 2; i ++){
+			if (ingredientsNeeded[i] == s && hasIngredient[i - 2] == false){
+				hasIngredient[i - 2] = true;
+				return i - 2;
 			}
 		}
-		return -1;
+		return -100;
 	}
 
 
