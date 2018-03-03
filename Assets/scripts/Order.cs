@@ -37,20 +37,17 @@ public class Order : MonoBehaviour {
 
 
 
-	void SetOrder(){
+	public void SetOrder(){
 		foreach (SpriteRenderer s in spriteRenderers){ // resets sprites to null
 			s.sprite = null;
 		}
 
 		List<string> myItems = myPizza.ingredientsNeeded;
-		Debug.Log(myItems.Count);
 
 		foreach (string s in myItems){
 			try{
-				Debug.Log(s);
 				for (int i = 0; i < items.Count; i ++){
 					
-					Debug.Log(items[i].name);
 					
 					if (items[i].name == s) {
 
@@ -62,10 +59,8 @@ public class Order : MonoBehaviour {
 				
 			}
 			catch{
-				Debug.Log("b");
 				items.Add(new orderItem(s, 1));
 			}
-			Debug.Log("");
 		}
 
 
@@ -86,11 +81,13 @@ public class Order : MonoBehaviour {
 	}
 
 	void Update(){
+		/*
 		if (!started){
 		SetOrder();
 		DebugMe();
 		started = true;
 		}
+		*/
 
 	}
 

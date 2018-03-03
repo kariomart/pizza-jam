@@ -128,7 +128,6 @@ public class GameControl : MonoBehaviour {
 				while(
 					newIngredient == "sauce" || newIngredient == "cheese"
 				);
-
 				newOrder.Add(newIngredient);
 			}
 
@@ -136,6 +135,7 @@ public class GameControl : MonoBehaviour {
 
 			
 			currentZa.ingredientsNeeded = newOrder;
+			currentZa.myOrder.SetOrder();
 			currentNumOrders++;
 		}
 

@@ -845,8 +845,11 @@ MonoBehaviour:
   ingredientsNeeded: []
   hasIngredient: 
   currentIngredients: []
+  sauced: {fileID: 0}
+  cheesed: {fileID: 0}
   value: 0
   timer: 0
+  myOrder: {fileID: 1632943999}
 --- !u!61 &192459241
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2856,8 +2859,11 @@ MonoBehaviour:
   ingredientsNeeded: []
   hasIngredient: 
   currentIngredients: []
+  sauced: {fileID: 0}
+  cheesed: {fileID: 0}
   value: 0
   timer: 0
+  myOrder: {fileID: 522313181}
 --- !u!61 &931092996
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3085,8 +3091,11 @@ MonoBehaviour:
   ingredientsNeeded: []
   hasIngredient: 
   currentIngredients: []
+  sauced: {fileID: 0}
+  cheesed: {fileID: 0}
   value: 0
   timer: 0
+  myOrder: {fileID: 1374512167}
 --- !u!61 &994167296
 BoxCollider2D:
   m_ObjectHideFlags: 0
