@@ -36,11 +36,14 @@ public class GameControl : MonoBehaviour {
 
 	int maxIngredients = 8;
 
-	public int ordersCompleted = 0;
-	public int maxOrdersAtOnce = 3;
+	public static int ordersCompleted = 0;
+	public static int maxOrdersAtOnce = 3;
+	public static int currentNumOrders = 0;
+	public float timeBtwOrders = 10;
+	float orderTimer = 0;
 
 	public Pizza[] pizzas;
-	public static int timeToCook = 30;
+	public static int timeToCook = 10;
 
 	public bool itemSelected = false;
 	public GameObject activeObj;
@@ -102,6 +105,7 @@ public class GameControl : MonoBehaviour {
 
 	void MakeOrder(){
 		Pizza currentZa = FindEmptyPizza();
+		float pizzaValue = 8; // base price
 
 		if (currentZa != null){
 			List<string> newOrder = new List<string>(){
@@ -109,8 +113,8 @@ public class GameControl : MonoBehaviour {
 				"cheese"
 			};
 
-			currentZa.hasIngredient.Add(true);
-			currentZa.hasIngredient.Add(true);
+			currentZa.hasIngredient.Add(false);
+			currentZa.hasIngredient.Add(false);
 
 			int numberOfIngredients = (int) Random.Range(.5f, maxIngredients + .5f);
 
@@ -128,8 +132,11 @@ public class GameControl : MonoBehaviour {
 				newOrder.Add(newIngredient);
 			}
 
+
+
 			
 			currentZa.ingredientsNeeded = newOrder;
+			currentNumOrders++;
 		}
 
 
@@ -153,8 +160,6 @@ public class GameControl : MonoBehaviour {
 			me = this;
 			activeObjSpriteRenderer = activeObj.GetComponent<SpriteRenderer>();
 			GameObject[] tempPizzas = GameObject.FindGameObjectsWithTag("za");
-			Debug.Log(tempPizzas.Length);
-			Debug.Log(pizzas.Length);
 			for (int i = 0; i < tempPizzas.Length; i ++){
 				pizzas[i] = tempPizzas[i].GetComponent<Pizza>();
 			}
@@ -178,6 +183,14 @@ public class GameControl : MonoBehaviour {
 	void Update () {
 		time = Time.timeSinceLevelLoad;
 		moneyText.text = "$$$: " + money.ToString();
+
+
+		orderTimer += Time.fixedDeltaTime;
+
+		if (orderTimer > timeBtwOrders && currentNumOrders < maxOrdersAtOnce){
+			MakeOrder();
+			orderTimer = 0;
+		}
 	
 
 
