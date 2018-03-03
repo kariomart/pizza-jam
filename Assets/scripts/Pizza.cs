@@ -13,6 +13,17 @@ public class Pizza : MonoBehaviour {
 
 	public float timer = 0;
 
+	SpriteRenderer mySpr;
+	BoxCollider2D myCol;
+
+	bool isCooking = false;
+
+
+	void Awake(){
+		mySpr = GetComponent<SpriteRenderer>();
+		myCol = GetComponent<BoxCollider2D>();
+	}
+
 
 	void OnMouseDown(){
 		if (GameControl.me.activeIngControl != null){
@@ -40,7 +51,6 @@ public class Pizza : MonoBehaviour {
 	}
 
 
-
 	bool AllIngrdientsAdded(){
 		foreach (bool b in hasIngredient){
 			if (!b){
@@ -63,12 +73,17 @@ public class Pizza : MonoBehaviour {
 
 
 	IEnumerator Cook(){
-		float timer = 0;
+		isCooking = true;
+		mySpr.enabled = false;
+		myCol.enabled = false;
+
 		while (timer < GameControl.timeToCook){
-			timer += Time.fixedUnscaledDeltaTime;
+			timer += Time.deltaTime;
 			yield return new WaitForEndOfFrame();
 		}
-
+		mySpr.enabled = true;
+		myCol.enabled = true;
+		isCooking = false;
 		Reset();
 	}
 
@@ -76,7 +91,20 @@ public class Pizza : MonoBehaviour {
 	void Reset(){
 		ingredientsNeeded = new List<string>();
 		hasIngredient = new List<bool>();
+		currentIngredients = new List<string>();
 		GameControl.me.money += value;
+		GameControl.ordersCompleted ++;
+		GameControl.currentNumOrders--;
+		timer = 0;
 	}
 
+
+	void Update(){
+
+		if (!isCooking){
+			mySpr.enabled = (ingredientsNeeded.Count != 0);
+			myCol.enabled = (ingredientsNeeded.Count != 0);
+
+		}
+	}
 }
