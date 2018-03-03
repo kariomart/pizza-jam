@@ -40,6 +40,7 @@ public class GameControl : MonoBehaviour {
 	public int maxOrdersAtOnce = 3;
 
 	public Pizza[] pizzas;
+	public static int timeToCook = 30;
 
 	public bool itemSelected = false;
 	public GameObject activeObj;
@@ -47,9 +48,6 @@ public class GameControl : MonoBehaviour {
 	SpriteRenderer activeObjSpriteRenderer;
 	public Sprite activeImage;
 	public string activeIngredient;
-
-
-	int timeToCook = 30;
 
 
 	public class order {
@@ -110,6 +108,9 @@ public class GameControl : MonoBehaviour {
 				"sauce",
 				"cheese"
 			};
+
+			currentZa.hasIngredient.Add(true);
+			currentZa.hasIngredient.Add(true);
 
 			int numberOfIngredients = (int) Random.Range(.5f, maxIngredients + .5f);
 

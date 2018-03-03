@@ -11,6 +11,8 @@ public class Pizza : MonoBehaviour {
 
 	public float value;
 
+	public float timer = 0;
+
 
 	void OnMouseDown(){
 		if (GameControl.me.activeIngControl != null){
@@ -26,19 +28,22 @@ public class Pizza : MonoBehaviour {
 			GameControl.me.activeIngControl.stock--;
 			GameControl.me.money -= GameControl.me.activeIngControl.myPrice;
 			Debug.Log("added");
+			GameControl.me.Deselect();
 
 
 			if (AllIngrdientsAdded()){
-				Reset();
+				Debug.Log("started");
+				StartCoroutine(Cook());
 			}
 
 		}
 	}
 
 
+
 	bool AllIngrdientsAdded(){
 		foreach (bool b in hasIngredient){
-			if (b){
+			if (!b){
 				return false;
 			}
 		}
@@ -47,13 +52,24 @@ public class Pizza : MonoBehaviour {
 
 
 	int CanAddIngredent(string s){
-		for (int i = 2; i < ingredientsNeeded.Count + 2; i ++){
-			if (ingredientsNeeded[i] == s && hasIngredient[i - 2] == false){
-				hasIngredient[i - 2] = true;
-				return i - 2;
+		for (int i = 0; i < ingredientsNeeded.Count; i ++){
+			if (ingredientsNeeded[i] == s && hasIngredient[i] == false){
+				hasIngredient[i] = true;
+				return i;
 			}
 		}
 		return -100;
+	}
+
+
+	IEnumerator Cook(){
+		float timer = 0;
+		while (timer < GameControl.timeToCook){
+			timer += Time.fixedUnscaledDeltaTime;
+			yield return new WaitForEndOfFrame();
+		}
+
+		Reset();
 	}
 
 
